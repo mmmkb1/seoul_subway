@@ -1,3 +1,5 @@
+import 'package:seoul_subway/domain/model/subway.dart';
+
 abstract interface class SubwayArrivalInfoRepository {
-  Future<Result<List<SubwayArrivalInfo>>> getArrivalInfo(String stationId);
+  Future<List<Subway>> getArrivalInfo(String query);
 }
