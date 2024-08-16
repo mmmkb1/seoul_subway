@@ -1,6 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
-class InputFieldSearch extends StatelessWidget {
+class InputFieldSearch extends StatefulWidget {
   final Function(String) onSearch;
 
   const InputFieldSearch({
@@ -9,8 +10,36 @@ class InputFieldSearch extends StatelessWidget {
   });
 
   @override
+  _InputFieldSearchState createState() => _InputFieldSearchState();
+}
+
+class _InputFieldSearchState extends State<InputFieldSearch> {
+  final TextEditingController _contentEditController = TextEditingController();
+  Timer? _debounce;
+
+  @override
+  void initState() {
+    super.initState();
+    _contentEditController.addListener(_onSearchChanged);
+  }
+
+  @override
+  void dispose() {
+    _contentEditController.removeListener(_onSearchChanged);
+    _contentEditController.dispose();
+    _debounce?.cancel();
+    super.dispose();
+  }
+
+  void _onSearchChanged() {
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+    _debounce = Timer(const Duration(seconds: 1), () {
+      widget.onSearch(_contentEditController.text);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final contentEditController = TextEditingController();
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
@@ -18,7 +47,7 @@ class InputFieldSearch extends StatelessWidget {
           border: Border.all(color: Colors.grey),
         ),
         child: TextField(
-          controller: contentEditController,
+          controller: _contentEditController,
           decoration: const InputDecoration(
             prefixIcon: Icon(Icons.search),
             prefixIconColor: Colors.grey,

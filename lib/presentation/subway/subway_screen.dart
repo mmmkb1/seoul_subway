@@ -22,8 +22,8 @@ class SubwayScreen extends StatelessWidget {
                 const Text('역 이름'),
                 const SizedBox(width: 8),
                 InputFieldSearch(
-                  onSearch: (String) {
-                    print(String);
+                  onSearch: (value) {
+                    print('1초후 입력된 값 $value');
                   },
                 ),
               ],
