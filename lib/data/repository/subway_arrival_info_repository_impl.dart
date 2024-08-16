@@ -1,8 +1,9 @@
+import 'package:seoul_subway/domain/model/subway.dart';
 import 'package:seoul_subway/domain/repository/subway_arrival_info_repository.dart';
 
 class SubwayArrivalInfoRepositoryImpl implements SubwayArrivalInfoRepository {
   @override
-  Future<Result<List<SubwayArrivalInfo>>> getArrivalInfo(String stationId){
+  Future<List<Subway>> getArrivalInfo(String query) {
     
   };
 }
