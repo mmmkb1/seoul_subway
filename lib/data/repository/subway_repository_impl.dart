@@ -12,10 +12,11 @@ class SubwayRepositoryImpl implements SubwayRepository {
 
   @override
   Future<List<Subway>> getSubways(String query) async {
-    final dto = await api.getSubwayResult(query);
+//     final dto = await api.getSubwayResult(query);
+// return dto.hashCode((e) => e.toSubway()).toList();
 
 
-    return dto.hashCode((e) => e.toSubway()).toList();
-
+    final result = await api.getSubwayResult(query);
+    return result.
   }
 }
